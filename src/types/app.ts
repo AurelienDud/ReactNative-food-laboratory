@@ -1,0 +1,1 @@
+export type ForDb<T> = Omit<T, "id">;

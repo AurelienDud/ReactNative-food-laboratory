@@ -5,8 +5,12 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@src/*": [
+        "./src/*"
       ]
-    }
+    },
+    "moduleSuffixes": [".native", ""]
   },
   "include": [
     "**/*.ts",
