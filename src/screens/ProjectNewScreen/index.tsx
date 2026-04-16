@@ -3,6 +3,7 @@ import { ScreenContainer } from "@/src/components/ScreenContainer";
 import { Spacer } from "@/src/components/Spacer";
 import { usePostProject } from "@/src/data/mutation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { router } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { projectNewFormSchema, ProjectNewFormValues, projectNewFormValuesToProject } from "./form";
 
@@ -20,7 +21,9 @@ export const ProjectNewScreen = () => {
     },
   });
 
-  const { mutate: mutateNewProject } = usePostProject();
+  const { mutate: mutateNewProject, isPending } = usePostProject({
+    onSuccess: id => router.replace(`/project/${id}`)
+  });
 
   const onSubmit = async (values: ProjectNewFormValues) => {
     mutateNewProject(projectNewFormValuesToProject(values));
@@ -75,6 +78,7 @@ export const ProjectNewScreen = () => {
         <Form.Submit
           onSubmit={handleSubmit(onSubmit)}
           isDisabled={!isValid || isSubmitting}
+          isLoading={isPending}
         >
           Create
         </Form.Submit>

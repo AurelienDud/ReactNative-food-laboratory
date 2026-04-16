@@ -1,9 +1,10 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { readProjects } from '../db'
+import { QueryKeyNamespace } from './constants'
 
-export function useGetProject() {
+export function useGetProjects() {
   const { data, isLoading } = useSuspenseQuery({
-    queryKey: ['projects'],
+    queryKey: [QueryKeyNamespace.PROJECTS],
     queryFn: readProjects,
   })
 

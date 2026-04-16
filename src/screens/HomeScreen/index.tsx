@@ -2,28 +2,9 @@ import { FlatList, StyleSheet } from 'react-native';
 
 import Card from '@/src/components/Card';
 import { ScreenContainer } from '@/src/components/ScreenContainer';
-import { ThemedText } from '@/src/components/ThemedText';
+import { ThemedText } from '@/src/components/ThemedText/index';
 import { ThemedView } from '@/src/components/ThemedView';
-import { readProjects } from '@/src/data/db';
-import { Project } from '@/src/types/project';
-import { useEffect, useState } from 'react';
-
-function useGetProjects() {
-  const [data, setData] = useState<Project[]>([])
-  const [isLoading, setIsLoading] = useState(false);
-  
-  useEffect(() => {
-    setIsLoading(true);
-    readProjects()
-      .then(data => setData(data))
-      .finally(() => setIsLoading(false));
-  }, [])
-
-  return {
-    data, 
-    isLoading
-  }
-} 
+import { useGetProjects } from '@/src/data/query';
 
 export const HomeScreen = () => {
   const { data } = useGetProjects();

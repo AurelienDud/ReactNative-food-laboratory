@@ -1,5 +1,5 @@
 import { ScreenContainer } from "@/src/components/ScreenContainer";
-import { ThemedText } from "@/src/components/ThemedText";
+import { ThemedText } from "@/src/components/ThemedText/index";
 import { Project } from "@src/types/project";
 import { FC } from "react";
 

@@ -1,5 +1,5 @@
 import { AppHeader } from '@/src/components/AppHeader';
-import { HapticTab } from '@/src/components/HapticTab';
+import { HapticTab } from '@/src/components/HapticTab/index';
 import { IconSymbol } from '@/src/components/IconSymbol/icon-symbol';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { CommonActions, NavigationRoute, ParamListBase } from '@react-navigation/native';

@@ -1,3 +1,4 @@
+import { SafeViewContainer } from "@/src/components/SafeViewContainer";
 import { useGetProject } from "@/src/data/query";
 import { ProjectDetailsScreen } from "@/src/screens/ProjectDetailsScreen";
 import StackLoader from "@src/components/StackLoader";
@@ -16,7 +17,9 @@ export default function ProjectDetailsRoute() {
       <Stack.Screen options={{
         title: data?.title,
       }} />
-      <ProjectDetailsScreen projectData={data} />
+      <SafeViewContainer>
+        <ProjectDetailsScreen projectData={data} />
+      </SafeViewContainer>
     </>
   )
 }
