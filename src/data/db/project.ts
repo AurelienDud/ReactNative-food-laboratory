@@ -1,5 +1,5 @@
 import { ForDb } from "../../types/app";
-import { Project } from "../../types/project";
+import { Project } from "../types/project";
 import { getDb } from "./getDb";
 import { cleanNullableText } from "./utils";
 
@@ -7,9 +7,8 @@ export async function createProject(data: ForDb<Project>): Promise<number> {
   const db = await getDb();
 
   const result = await db.runAsync(
-    'INSERT INTO projects (created_at, description, title) VALUES (?, ?, ?);',
+    'INSERT INTO projects (description, title) VALUES (?, ?, ?);',
     [
-      data.created_at, 
       cleanNullableText(data.description), 
       data.title
     ]

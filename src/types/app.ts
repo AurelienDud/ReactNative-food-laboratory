@@ -1,1 +1,1 @@
-export type ForDb<T> = Omit<T, "id">;
+export type ForDb<T> = Omit<T, "id" | "created_at">;

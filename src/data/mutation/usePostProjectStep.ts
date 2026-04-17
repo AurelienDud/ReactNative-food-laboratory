@@ -1,29 +1,29 @@
-import { Project } from "@/src/data/types";
+import { ProjectStep } from "@/src/data/types";
 import { ForDb } from "@/src/types/app";
 import { useMutation } from "@tanstack/react-query";
-import { createProject } from "../db";
+import { createProjectStep } from "../db";
 import { queryClient, QueryKeyNamespace } from "../query";
 
-interface UsePostProjectConfig {
+interface UsePostProjectStepConfig {
   onMutate?: () => void; 
   onSuccess?: (id: number) => void;
   onError?: () => void;
 }
-interface UsePostProjectResult {
-  mutate: (payload: ForDb<Project>) => Promise<number>;
+interface UsePostProjectStepResult {
+  mutate: (payload: ForDb<ProjectStep>) => Promise<number>;
   isPending: boolean;
 }
 
-export function usePostProject(config: UsePostProjectConfig = {}): UsePostProjectResult {
+export function usePostProjectStep(config: UsePostProjectStepConfig = {}): UsePostProjectStepResult {
   const { onError, onMutate, onSuccess } = config;
   
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: createProject,
+    mutationFn: createProjectStep,
     onError, 
     onMutate, 
     onSuccess: id => {
-      queryClient.invalidateQueries({ queryKey: [QueryKeyNamespace.PROJECTS]});
-      queryClient.invalidateQueries({ queryKey: [QueryKeyNamespace.PROJECT, id]});
+      queryClient.invalidateQueries({ queryKey: [QueryKeyNamespace.PROJECT_STEPS]});
+      queryClient.invalidateQueries({ queryKey: [QueryKeyNamespace.PROJECT_STEP, id]});
       onSuccess?.(id);
     }
   });

@@ -1,10 +1,10 @@
 import { ScreenContainer } from '@/src/components/ScreenContainer';
 import { ThemedText } from '@/src/components/ThemedText/index';
 
-export const ExploreScreen = () => (
+export const SettingsScreen = () => (
   <ScreenContainer>
     <ThemedText>
-      Hello
+      Todo
     </ThemedText>
   </ScreenContainer>
 );

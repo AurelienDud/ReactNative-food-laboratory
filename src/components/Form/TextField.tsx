@@ -17,9 +17,11 @@ export const TextField: FC<TextFieldProps> = props => {
         {...textInputProps}
         error={hasError}
       />
-      <HelperText type="error" visible={hasError}>
-        {error?.message}
-      </HelperText>
+      {hasError ? (
+        <HelperText type="error" visible>
+          {error?.message}
+        </HelperText>
+      ) : null}
     </Spacer>
   );
 };
