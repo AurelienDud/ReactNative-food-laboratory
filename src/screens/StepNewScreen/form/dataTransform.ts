@@ -1,8 +1,8 @@
 import { ProjectStep } from "@/src/data/types";
 import { ForDb } from "@/src/types/app";
-import { ProjectStepNewFormValues } from "./types";
+import { StepNewFormValues } from "./types";
 
-export function projectStepNewFormValuesToProject(values: ProjectStepNewFormValues): ForDb<ProjectStep> {
+export function stepNewFormValuesToProject(values: StepNewFormValues): ForDb<ProjectStep> {
   return {
     occurred_at: values.occurred_at.toLocaleDateString(),
     title: values.title,

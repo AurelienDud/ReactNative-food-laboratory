@@ -13,7 +13,14 @@ export default function RootLayout() {
     <AppProvider>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="project" options={{ headerShown: false }} />
+        <Stack.Screen name="project/[projectId]" options={{ headerShown: false }} />
+        <Stack.Screen name="projectNew" options={{ 
+          headerShown: false,
+          presentation: 'formSheet',
+          sheetAllowedDetents: [0.7, 0.85],
+          sheetInitialDetentIndex: 0,
+          sheetGrabberVisible: true,
+        }} />
       </Stack>
       <StatusBar style="auto" />
     </AppProvider>

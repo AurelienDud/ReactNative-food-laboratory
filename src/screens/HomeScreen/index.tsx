@@ -21,7 +21,7 @@ export const HomeScreen = () => {
         <FlatList
           data={data}
           renderItem={({item}) => (
-            <Card title={item.title} url={{ pathname: '/project/[id]', params: { id: item.id } }}  />
+            <Card title={item.title} url={{ pathname: '/project/[projectId]', params: { projectId: item.id } }}  />
           )}
           contentContainerStyle={{ gap: 12 }}
         />

@@ -1,12 +1,12 @@
 import { SafeViewContainer } from "@/src/components/SafeViewContainer";
 import { useGetProject } from "@/src/data/query";
-import { ProjectDetailsScreen } from "@/src/screens/ProjectDetailsScreen";
+import { ProjectScreen } from "@/src/screens/ProjectScreen";
 import StackLoader from "@src/components/StackLoader";
 import { Stack, useLocalSearchParams } from "expo-router";
 
-export default function ProjectDetailsRoute() {
-  const { id } = useLocalSearchParams<{ id: string }>();
-  const { data, isLoading } = useGetProject({ id: parseInt(id) });
+export default function ProjectRoute() {
+  const { projectId } = useLocalSearchParams<{ projectId: string }>();
+  const { data, isLoading } = useGetProject({ id: parseInt(projectId) });
 
   if (isLoading || !data) {
     return <StackLoader />
@@ -18,7 +18,7 @@ export default function ProjectDetailsRoute() {
         title: data?.title,
       }} />
       <SafeViewContainer>
-        <ProjectDetailsScreen projectData={data} />
+        <ProjectScreen projectData={data} />
       </SafeViewContainer>
     </>
   )

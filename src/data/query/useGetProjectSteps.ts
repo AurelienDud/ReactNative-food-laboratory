@@ -15,4 +15,4 @@ export function useGetProjectSteps(config: UseGetProjectStepsConfig) {
   })
 
   return { data, isLoading }
-}
+} 

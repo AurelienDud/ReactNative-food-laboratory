@@ -1,22 +1,22 @@
-import { AssetUploader } from "@/src/components/AssetUploader";
 import { Form } from "@/src/components/Form";
 import { ScreenContainer } from "@/src/components/ScreenContainer";
 import { Spacer } from "@/src/components/Spacer";
-import { ThemedText } from "@/src/components/ThemedText";
 import { usePostProjectStep } from "@/src/data/mutation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { FC } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { projectStepNewFormSchema, ProjectStepNewFormValues, projectStepNewFormValuesToProject } from "./form";
+import { stepNewFormSchema, StepNewFormValues, stepNewFormValuesToProject } from "./form";
 
-export const ProjectStepNewScreen: FC = () => {
+export const StepNewScreen: FC = () => {
+  const { projectId } = useLocalSearchParams<{ projectId: string }>();
+
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
-  } = useForm<ProjectStepNewFormValues>({
-    resolver: zodResolver(projectStepNewFormSchema),
+  } = useForm<StepNewFormValues>({
+    resolver: zodResolver(stepNewFormSchema),
     defaultValues: {
       title: '',
       description: '',
@@ -25,11 +25,12 @@ export const ProjectStepNewScreen: FC = () => {
   });
 
   const { mutate: mutateNewProjectStep, isPending } = usePostProjectStep({
+    projectId: parseInt(projectId),
     onSuccess: () => router.back(),
   });
 
-  const onSubmit = async (values: ProjectStepNewFormValues) => {
-    mutateNewProjectStep(projectStepNewFormValuesToProject(values));
+  const onSubmit = async (values: StepNewFormValues) => {
+    mutateNewProjectStep(stepNewFormValuesToProject(values));
   };
 
   return (
@@ -46,6 +47,7 @@ export const ProjectStepNewScreen: FC = () => {
               onChangeText={onChange}
               onBlur={onBlur}
               error={errors.title}
+              autoFocus
             />
           )}
         />
@@ -71,20 +73,13 @@ export const ProjectStepNewScreen: FC = () => {
           name="occurred_at"
           render={({ field: { onChange, value } }) => (
             <Form.DateField
-              label="Starting date"
+              label="Event date"
               value={value}
               onChange={date => date && onChange(date)}
             />
           )}
         />
 
-        <Spacer size="small">
-          <ThemedText>
-            Documents
-          </ThemedText>
-          <AssetUploader />
-        </Spacer>
-        
         <Form.Submit
           onSubmit={handleSubmit(onSubmit)}
           isDisabled={!isValid || isSubmitting}

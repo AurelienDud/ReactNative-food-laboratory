@@ -4,7 +4,6 @@ import { Dimensions, StyleSheet } from 'react-native';
 import { Button, Portal, Snackbar } from "react-native-paper";
 import { AssetsGrid } from '../AssetsGrid';
 import { Spacer } from '../Spacer';
-import { ThemedText } from '../ThemedText';
 import { ThemedView } from "../ThemedView";
 
 type TemporaryAsset = {
@@ -79,10 +78,7 @@ export const AssetUploader: FC = () => {
   return (
     <>
       <ThemedView>
-        <ThemedText>
-          {selectedAssetId.join('; ')}
-        </ThemedText>
-        <Spacer>
+        <Spacer >
           {selectedAssets.length ? (
             <AssetsGrid 
               data={selectedAssets}

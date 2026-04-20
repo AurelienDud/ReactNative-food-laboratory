@@ -42,6 +42,7 @@ export const ProjectNewScreen = () => {
               onChangeText={onChange}
               onBlur={onBlur}
               error={errors.title}
+              autoFocus
             />
           )}
         />

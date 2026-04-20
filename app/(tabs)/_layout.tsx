@@ -51,7 +51,7 @@ export default function TabLayout() {
   const router = useRouter();
 
   const handleAddProject = () => {
-    router.push('/project/new');  
+    router.push('/projectNew');  
   }
 
   return (
@@ -82,7 +82,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: true,
         tabBarButton: HapticTab,
-        headerTitle: '',
+        headerTitle: 'Food Laboratory',
       }}>
       <Tabs.Screen
         name="index"

@@ -3,11 +3,11 @@ import { ProjectStep } from "../types";
 import { getDb } from "./getDb";
 import { cleanNullableText } from "./utils";
 
-export async function createProjectStep(data: ForDb<ProjectStep>): Promise<number> {
+export async function createProjectStep(projectId: number, data: ForDb<ProjectStep>): Promise<number> {
   const db = await getDb();
 
-  const result = await db.runAsync(
-    'INSERT INTO projects (occurred_at description, title) VALUES (?, ?, ?);',
+  const { lastInsertRowId: stepId } = await db.runAsync(
+    'INSERT INTO projectSteps (occurred_at, description, title) VALUES (?, ?, ?);',
     [
       data.occurred_at,
       cleanNullableText(data.description), 
@@ -15,13 +15,18 @@ export async function createProjectStep(data: ForDb<ProjectStep>): Promise<numbe
     ]
   );
 
-  return result.lastInsertRowId;
+  await db.runAsync(
+    `INSERT INTO project_projectSteps (project_id, projectStep_id) VALUES (?, ?)`,
+    [projectId, stepId]
+  );
+
+  return stepId;
 }
 
-export async function readProjectStepById(id: number): Promise<ProjectStep[]> {
+export async function readProjectStepById(id: number): Promise<ProjectStep|null> {
   const db = await getDb();
   
-  return db.getAllAsync<ProjectStep>(
+  return db.getFirstAsync<ProjectStep>(
     'SELECT * FROM projectSteps WHERE id = ?;',
     [id]
   );
