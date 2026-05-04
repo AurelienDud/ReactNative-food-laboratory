@@ -1,4 +1,4 @@
-import { FabButton } from "@/src/components/FabButton";
+import { FabButtons } from "@/src/components/FabButton";
 import { ScreenContainer } from "@/src/components/ScreenContainer";
 import { Spacer } from "@/src/components/Spacer";
 import { ThemedText } from "@/src/components/ThemedText";
@@ -32,10 +32,20 @@ export const StepScreen: FC<StepScreenProps> = props => {
         </ThemedText>
       </Spacer>
 
-      <FabButton
+      <FabButtons
         icon="plus"
-        onPress={() => router.navigate(`/project/${projectId}/${data.id}/assetNew`)}
-        label="Add an asset"
+        actions={[
+          {
+            label: 'Take a photo',
+            icon: 'camera',
+            onPress: () => router.navigate(`/project/${projectId}/${data.id}/assetCameraNew`),
+          },
+          {
+            label: 'Choose in gallery',
+            icon: 'image',
+            onPress: () => router.navigate(`/project/${projectId}/${data.id}/assetGalleryNew`),
+          },
+        ]}
       />
     </ScreenContainer>
   )

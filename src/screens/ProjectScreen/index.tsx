@@ -1,3 +1,4 @@
+import { CardInline } from "@/src/components/CardInline";
 import { FabButton } from "@/src/components/FabButton";
 import { ScreenContainer } from "@/src/components/ScreenContainer";
 import { Spacer } from "@/src/components/Spacer";
@@ -6,7 +7,6 @@ import { useGetProjectSteps } from "@/src/data/query/useGetProjectSteps";
 import { Project } from "@/src/data/types";
 import { router } from "expo-router";
 import { FC } from "react";
-import { Pressable } from "react-native";
 
 interface ProjectScreenProps {
   projectData: Project;
@@ -23,26 +23,19 @@ export const ProjectScreen: FC<ProjectScreenProps> = props => {
         <ThemedText>
           Description: {projectData.description}
         </ThemedText>
-
         <Spacer>
           <ThemedText>
             Steps: 
           </ThemedText>
-
           <Spacer>
             {projectSteps.map(projectStep => (
-              <Pressable key={projectStep.id} onPress={() => router.navigate(`/project/${projectData.id}/${projectStep.id}`)}>
-                <Spacer>
-                  <ThemedText>
-                    {projectStep.title}
-                  </ThemedText>
-                  {projectStep.description ? (
-                    <ThemedText>
-                      {projectStep.description}
-                    </ThemedText>
-                  ) : null}
-                </Spacer>
-              </Pressable>
+              <CardInline 
+                key={projectStep.id}
+                title={projectStep.title}
+                date={projectStep.description}
+                imageUri={undefined} 
+                onPress={() => router.navigate(`/project/${projectData.id}/${projectStep.id}`)}
+              />
             ))}
           </Spacer>
         </Spacer>

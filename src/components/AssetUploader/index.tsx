@@ -1,4 +1,6 @@
-import { ImagePickerOptions, launchCameraAsync, launchImageLibraryAsync, requestCameraPermissionsAsync, requestMediaLibraryPermissionsAsync } from 'expo-image-picker';
+import { useCamera } from '@/src/features/useCamera';
+import { useGallery } from '@/src/features/useGallery';
+import { ImagePickerOptions } from 'expo-image-picker';
 import { FC, useState } from "react";
 import { Dimensions, StyleSheet } from 'react-native';
 import { Button, Portal, Snackbar } from "react-native-paper";
@@ -16,43 +18,24 @@ const IMAGE_PICKER_OPTIONS: ImagePickerOptions = {
   aspect: [4, 3],
   quality: 1,
   allowsMultipleSelection: true,
+  defaultTab: 'albums'
 }
 
 export const AssetUploader: FC = () => {
   const [selectedAssets, setSelectedAssets] = useState<TemporaryAsset[]>([]);
   const [isGrantAlertVisible, setIsGrantAlertVisible] = useState(false);
 
-  const handlePickDocuments = async () => {
-    const permissionResult = await requestMediaLibraryPermissionsAsync();
+  const { handleUseGallery } = useGallery({
+    options: IMAGE_PICKER_OPTIONS,
+    onSelect: images => setSelectedAssets(current => ([...current, ...images])),
+    onGrantError: () => setIsGrantAlertVisible(true),
+  })
 
-    if (!permissionResult.granted) {
-      setIsGrantAlertVisible(true);
-      return;
-    }
-
-    let result = await launchImageLibraryAsync(IMAGE_PICKER_OPTIONS);
-
-    if (!result.canceled) {
-      const uris = result.assets.map(({ uri }) => ({ uri }));
-      setSelectedAssets(current => ([...current, ...uris]));
-    }
-  }
-
-  const handleTakePhoto = async () => {
-    const permissionResult = await requestCameraPermissionsAsync();
-
-    if (!permissionResult.granted) {
-      setIsGrantAlertVisible(true);
-      return;
-    }
-
-    let result = await launchCameraAsync(IMAGE_PICKER_OPTIONS);
-
-    if (!result.canceled) {
-      const uris = result.assets.map(({ uri }) => ({ uri }));
-      setSelectedAssets(current => ([...current, ...uris]));
-    }
-  }
+  const { handleUseCamera } = useCamera({
+    options: IMAGE_PICKER_OPTIONS,
+    onSelect: images => setSelectedAssets(current => ([...current, ...images])),
+    onGrantError: () => setIsGrantAlertVisible(true),
+  })
 
   const vh = Dimensions.get('window').height;
   const [selectedAssetId, setSelectedAssetId] = useState<string[]>([]);
@@ -97,10 +80,10 @@ export const AssetUploader: FC = () => {
               </Button>
             ) : (
               <>
-                <Button icon='camera' mode="outlined" onPress={handleTakePhoto}>
+                <Button icon='camera' mode="outlined" onPress={handleUseCamera}>
                   Camera
                 </Button>
-                <Button icon='file' mode="outlined" onPress={handlePickDocuments}>
+                <Button icon='file' mode="outlined" onPress={handleUseGallery}>
                   Gallery
                 </Button>
               </>
@@ -108,6 +91,7 @@ export const AssetUploader: FC = () => {
           </ThemedView>
         </Spacer>
       </ThemedView>
+      
       <Portal>
         <Snackbar
           visible={isGrantAlertVisible}

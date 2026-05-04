@@ -1,12 +1,7 @@
 import { FC } from "react";
-import { StyleSheet } from "react-native";
 import { FAB } from "react-native-paper";
-
-interface FabButtonProps {
-  icon: string;
-  label?: string;
-  onPress: () => void;
-}
+import { styles } from "./styles";
+import { FabButtonProps } from "./types";
 
 export const FabButton: FC<FabButtonProps> = props => {
   const { onPress, label, icon } = props;
@@ -21,11 +16,3 @@ export const FabButton: FC<FabButtonProps> = props => {
   )
 }
 
-const styles = StyleSheet.create({
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
-  },
-})

@@ -1,10 +1,10 @@
 import { SafeViewContainer } from "@/src/components/SafeViewContainer";
 import { AssetNewScreen } from "@/src/screens/AssetNewScreen";
 
-export default function ProjectStepAssetNew() {
+export default function AssetGalleryNew() {
   return (
     <SafeViewContainer>
-      <AssetNewScreen />
+      <AssetNewScreen mode="gallery" />
     </SafeViewContainer>
   )
 }

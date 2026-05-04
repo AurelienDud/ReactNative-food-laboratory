@@ -5,10 +5,13 @@ export default function ProjectStepItemLayout() {
   return (
     <Stack screenOptions={{ header: props => <AppHeader.HeaderAdapted config={props} />, }}>
       <Stack.Screen name="index" options={{ title: 'Step' }} />
-      <Stack.Screen name="assetNew" options={{ 
-        title: 'Add a asset', 
-        presentation: 'formSheet', 
-        sheetAllowedDetents: [0.25, 0.75], 
+      <Stack.Screen name="assetCameraNew" options={{ 
+        headerShown: true,
+        presentation: 'card', 
+      }} />
+      <Stack.Screen name="assetGalleryNew" options={{ 
+        headerShown: true,
+        presentation: 'card', 
       }} />
       <Stack.Screen name="[assetId]" options={{ headerShown: false }} />
     </Stack>
